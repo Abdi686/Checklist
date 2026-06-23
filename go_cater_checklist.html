@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Go Cater - 24-Hour Shift Safety & Operational Ledger</title>
     <style>
         body {
@@ -13,7 +13,7 @@
             padding: 20px;
         }
         .container {
-            max-width: 600px;
+            max-width: 700px;
             background: #fff;
             margin: 0 auto;
             padding: 30px;
@@ -57,13 +57,20 @@
             margin-bottom: 5px;
             color: #4a5568;
         }
-        input[type="text"], input[type="date"], input[type="time"], select, textarea {
+        input[type="text"], input[type="date"], input[type="time"], input[type="number"], select, textarea {
             width: 100%;
             padding: 10px;
             border: 1px solid #cbd5e0;
             border-radius: 6px;
             box-sizing: border-box;
             font-size: 14px;
+        }
+        .row {
+            display:flex;
+            gap:12px;
+        }
+        .col {
+            flex:1;
         }
         .checkbox-group {
             display: flex;
@@ -102,6 +109,10 @@
             color: #718096;
             font-size: 13px;
         }
+        .small {
+            font-size: 13px;
+            color: #718096;
+        }
     </style>
 </head>
 <body>
@@ -111,33 +122,50 @@
     <h2>24-Hour Shift Safety & Operational Ledger</h2>
 
     <!-- Metadata Section -->
-    <div class="section">
+    <div class="section" id="metadata">
         <div class="form-group">
             <label for="staffName">Staff Member Name</label>
-            <input type="text" id="staffName" placeholder="Enter your name">
+            <input type="text" id="staffName" placeholder="Enter your name" />
         </div>
-        <div class="form-group">
-            <label for="shiftDate">Date</label>
-            <input type="date" id="shiftDate">
-        </div>
-        <div class="form-group">
-            <label for="timeStart">Time Start</label>
-            <input type="time" id="timeStart">
-        </div>
-        <div class="form-group">
-            <label for="shiftSelect">Select Your Shift (24H Coverage)</label>
-            <select id="shiftSelect">
-                <option value="">-- Choose Shift --</option>
-                <option value="morning">Morning Shift (06:00 - 14:00) [Opening Checklist]</option>
-                <option value="afternoon">Afternoon Shift (14:00 - 22:00) [Mid-Day Checklist]</option>
-                <option value="night">Night Shift (22:00 - 06:00) [Closing Checklist]</option>
-            </select>
+        <div class="row">
+            <div class="col form-group">
+                <label for="shiftDate">Date</label>
+                <input type="date" id="shiftDate" />
+            </div>
+            <div class="col form-group">
+                <label for="timeStart">Time Start</label>
+                <input type="time" id="timeStart" />
+            </div>
+            <div class="col form-group">
+                <label for="shiftSelect">Select Your Shift (24H Coverage)</label>
+                <select id="shiftSelect">
+                    <option value="">-- Choose Shift --</option>
+                    <option value="morning">Morning Shift (06:00 - 14:00) [Opening Checklist]</option>
+                    <option value="afternoon">Afternoon Shift (14:00 - 22:00) [Mid-Day Checklist]</option>
+                    <option value="night">Night Shift (22:00 - 06:00) [Closing Checklist]</option>
+                </select>
+            </div>
         </div>
     </div>
 
     <!-- Core Checks Section -->
-    <div class="section">
+    <div class="section" id="core-checks">
         <div class="section-title">Core Shift Checks</div>
+        <div class="form-group">
+            <label for="fridgeTemp">Fridge Temp (°C)</label>
+            <input type="number" id="fridgeTemp" step="0.1" placeholder="e.g. 3.5" />
+            <div class="small">Record fridge temp (target: 0–5°C). Freezer target: ≤ -18°C — use freezer field below.</div>
+        </div>
+        <div class="form-group">
+            <label for="freezerTemp">Freezer Temp (°C)</label>
+            <input type="number" id="freezerTemp" step="0.1" placeholder="e.g. -18.0" />
+        </div>
+        <div class="form-group">
+            <label for="hotHoldTemp">Hot Hold Temp (°C)</label>
+            <input type="number" id="hotHoldTemp" step="0.1" placeholder="e.g. 70" />
+            <div class="small">Target: ≥ 63°C for hot holding</div>
+        </div>
+
         <div class="checkbox-group">
             <input type="checkbox" id="check1">
             <label for="check1">Fridge & Freezer Temps Logged & OK (Freezers down to -18°C)</label>
@@ -156,8 +184,53 @@
         </div>
     </div>
 
+    <!-- Equipment & Safety Checks -->
+    <div class="section" id="safety-checks">
+        <div class="section-title">Equipment & Safety Checks (Added)</div>
+
+        <div class="checkbox-group">
+            <input type="checkbox" id="allergenLabel">
+            <label for="allergenLabel">Allergen labeling & signage present</label>
+        </div>
+
+        <div class="checkbox-group">
+            <input type="checkbox" id="ppe">
+            <label for="ppe">PPE in use (gloves, hairnets, aprons)</label>
+        </div>
+
+        <div class="checkbox-group">
+            <input type="checkbox" id="thermoCal">
+            <label for="thermoCal">Thermometers calibrated & available</label>
+        </div>
+
+        <div class="checkbox-group">
+            <input type="checkbox" id="equipmentOK">
+            <label for="equipmentOK">Equipment functioning (ovens, burners, slicers)</label>
+        </div>
+
+        <div class="checkbox-group">
+            <input type="checkbox" id="deliveryCheck">
+            <label for="deliveryCheck">Delivery inspection completed (incoming goods)</label>
+        </div>
+
+        <div class="checkbox-group">
+            <input type="checkbox" id="pestControl">
+            <label for="pestControl">Pest control checks / no signs of infestation</label>
+        </div>
+
+        <div class="checkbox-group">
+            <input type="checkbox" id="fireExits">
+            <label for="fireExits">Fire exits clear & extinguishers present</label>
+        </div>
+
+        <div class="checkbox-group">
+            <input type="checkbox" id="firstAid">
+            <label for="firstAid">First aid kit stocked</label>
+        </div>
+    </div>
+
     <!-- Opening & Closing Specifics -->
-    <div class="section">
+    <div class="section" id="open-close">
         <div class="section-title">Opening & Closing Specifics</div>
         <div class="checkbox-group">
             <input type="checkbox" id="openCheck">
@@ -170,19 +243,102 @@
     </div>
 
     <!-- Handover Notes -->
-    <div class="section">
+    <div class="section" id="notes-section">
         <div class="section-title">Handover Notes / Discrepancies</div>
-        <textarea id="notes" rows="4" placeholder="Enter details of any equipment faults, temperature drops, or stock issues..."></textarea>
+        <textarea id="notes" rows="5" placeholder="Enter details of any equipment faults, temperature drops, or stock issues..."></textarea>
+
+        <div class="row" style="margin-top:12px;">
+            <div class="col form-group">
+                <label for="staffSignature">Staff Signature (name)</label>
+                <input type="text" id="staffSignature" placeholder="Signed by..." />
+            </div>
+            <div class="col form-group">
+                <label for="handoverTo">Handover To (name)</label>
+                <input type="text" id="handoverTo" placeholder="Next shift staff name" />
+            </div>
+            <div class="col form-group">
+                <label for="handoverTime">Handover Time</label>
+                <input type="time" id="handoverTime" />
+            </div>
+        </div>
     </div>
 
     <!-- Submit Action -->
-    <button onclick="alert('Report Compiled! Ready to email.')">Send Catering Report via Email</button>
+    <button type="button" onclick="sendReport()">Send Catering Report via Email</button>
 
-    <div class="qr-placeholder">
+    <div class="qr-placeholder" aria-hidden="false">
         <p><strong>Scan to Open This Catering Checklist (Live)</strong></p>
-        <div style="background:#edf2f7; width:100px; height:100px; margin:10px auto; display:flex; align-items:center; justify-content:center; border: 1px solid #cbd5e0; border-radius:4px; font-size:10px; color:#a0aec0;">QR CODE</div>
+        <div style="background:#edf2f7; width:120px; height:120px; margin:10px auto; display:flex; align-items:center; justify-content:center; border: 1px solid #cbd5e0; border-radius:6px; font-size:12px; color:#4a5568;">
+            QR Placeholder
+        </div>
+        <div class="small">Put your QR code here that links to the live checklist or deployment.</div>
     </div>
 </div>
+
+<script>
+    function sendReport() {
+        // Basic gather function: collects inputs and checkboxes and composes an email body.
+        const staffName = document.getElementById('staffName').value || '(none)';
+        const shiftDate = document.getElementById('shiftDate').value || '(none)';
+        const timeStart = document.getElementById('timeStart').value || '(none)';
+        const shiftSelect = document.getElementById('shiftSelect').value || '(none)';
+        const fridgeTemp = document.getElementById('fridgeTemp').value || '(not recorded)';
+        const freezerTemp = document.getElementById('freezerTemp').value || '(not recorded)';
+        const hotHoldTemp = document.getElementById('hotHoldTemp').value || '(not recorded)';
+        const notes = document.getElementById('notes').value || '(none)';
+        const staffSignature = document.getElementById('staffSignature').value || '(none)';
+        const handoverTo = document.getElementById('handoverTo').value || '(none)';
+        const handoverTime = document.getElementById('handoverTime').value || '(none)';
+
+        // Collect checkbox states
+        const checks = [];
+        document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+            const label = document.querySelector('label[for="' + cb.id + '"]');
+            const text = label ? label.innerText.trim() : cb.id;
+            checks.push({
+                id: cb.id,
+                label: text,
+                checked: cb.checked
+            });
+        });
+
+        // Build human-readable list
+        const checkedList = checks.map(c => `${c.checked ? '[X]' : '[ ]'} ${c.label}`).join('\n');
+
+        const bodyLines = [
+            `Go Cater - Shift Report`,
+            `Staff: ${staffName}`,
+            `Date: ${shiftDate}`,
+            `Shift start: ${timeStart}`,
+            `Shift: ${shiftSelect}`,
+            ``,
+            `Temperature readings:`,
+            ` - Fridge: ${fridgeTemp} °C`,
+            ` - Freezer: ${freezerTemp} °C`,
+            ` - Hot hold: ${hotHoldTemp} °C`,
+            ``,
+            `Checks:`,
+            checkedList,
+            ``,
+            `Handover / Notes:`,
+            ` - Notes: ${notes}`,
+            ` - Signed by: ${staffSignature}`,
+            ` - Handover to: ${handoverTo} at ${handoverTime}`,
+            ``,
+            `-- End of report --`
+        ];
+
+        const subject = encodeURIComponent(`Go Cater Shift Report - ${shiftDate} - ${staffName}`);
+        const body = encodeURIComponent(bodyLines.join('\n'));
+
+        // Use mailto: to open the user's email client. Replace the recipient address if desired.
+        const recipient = ''; // e.g. 'catering@company.com' — leave empty to let user choose
+        const mailto = `mailto:${recipient}?subject=${subject}&body=${body}`;
+
+        // Open mail client
+        window.location.href = mailto;
+    }
+</script>
 
 </body>
 </html>
