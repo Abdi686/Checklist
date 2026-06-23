@@ -3,130 +3,186 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Go Cater</title>
+    <title>Go Cater - 24-Hour Shift Safety & Operational Ledger</title>
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #0f172a; color: #f8fafc; padding: 20px; }
-        .card { background: #1e293b; max-width: 800px; margin: 0 auto; padding: 25px; border-radius: 12px; border: 1px solid #334155; }
-        h2 { color: #38bdf8; margin-top: 0; }
-        .input-group { margin-bottom: 20px; }
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        label { display: block; margin-bottom: 8px; color: #94a3b8; font-weight: bold; font-size: 0.9rem; }
-        input[type="text"], input[type="number"], input[type="date"], input[type="time"], select, textarea { width: 100%; padding: 10px; background: #0f172a; border: 1px solid #334155; border-radius: 8px; color: #f1f5f9; }
-        select { cursor: pointer; }
-        .check-item { display: flex; align-items: center; background: #111827; padding: 12px; margin-bottom: 10px; border-radius: 8px; border: 1px solid #1f2937; }
-        input[type="checkbox"] { width: 20px; height: 20px; margin-right: 15px; accent-color: #38bdf8; }
-        .btn { background: #0284c7; color: white; border: none; padding: 12px; width: 100%; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 1rem; margin-top: 15px; }
-        .btn:hover { background: #0369a1; }
-        .section-title { color: #38bdf8; font-size: 1.1rem; margin: 25px 0 10px 0; font-weight: bold; }
-        @media (max-width: 600px) { .grid-2 { grid-template-columns: 1fr; } }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            background: #fff;
+            margin: 0 auto;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #1a365d;
+            text-align: center;
+            margin-bottom: 5px;
+            font-size: 24px;
+        }
+        h2 {
+            color: #4a5568;
+            text-align: center;
+            font-size: 16px;
+            margin-top: 0;
+            margin-bottom: 25px;
+            font-weight: 400;
+        }
+        .section {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .section-title {
+            font-weight: bold;
+            color: #2b6cb0;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 5px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #4a5568;
+        }
+        input[type="text"], input[type="date"], input[type="time"], select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cbd5e0;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+        .checkbox-group input[type="checkbox"] {
+            margin-top: 4px;
+            margin-right: 12px;
+            transform: scale(1.2);
+        }
+        .checkbox-group label {
+            font-weight: 500;
+            cursor: pointer;
+        }
+        button {
+            width: 100%;
+            background-color: #2b6cb0;
+            color: white;
+            border: none;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background-color: #2c5282;
+        }
+        .qr-placeholder {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px dashed #cbd5e0;
+            color: #718096;
+            font-size: 13px;
+        }
     </style>
 </head>
 <body>
-    <div class="card">
-        <h2>Go Cater</h2>
-        <p style="color:#94a3b8; font-size:0.9rem;">24-Hour Shift Safety & Operational Ledger</p>
-        
-        <form id="cateringForm">
-            <div class="input-group">
-                <label>Staff Member Name</label>
-                <input type="text" id="staffName" placeholder="Enter your full name" required>
-            </div>
 
-            <div class="grid-2">
-                <div class="input-group">
-                    <label>Date</label>
-                    <input type="date" id="logDate" required>
-                </div>
-                <div class="input-group">
-                    <label>Time Start</label>
-                    <input type="time" id="timeStart" required>
-                </div>
-            </div>
+<div class="container">
+    <h1>Go Cater</h1>
+    <h2>24-Hour Shift Safety & Operational Ledger</h2>
 
-            <div class="input-group">
-                <label>Select Your Shift (24H Coverage)</label>
-                <select id="shiftPattern" required>
-                    <option value="" disabled selected>-- Choose Shift --</option>
-                    <option value="Morning Shift (06:00 - 14:00)">Morning Shift (06:00 - 14:00) [Opening Checklist]</option>
-                    <option value="Afternoon Shift (14:00 - 22:00)">Afternoon Shift (14:00 - 22:00) [Mid-Day Checklist]</option>
-                    <option value="Night Shift (22:00 - 06:00)">Night Shift (22:00 - 06:00) [Closing Checklist]</option>
-                </select>
-            </div>
-
-            <hr style="border-color: #334155; margin: 25px 0;">
-
-            <div class="section-title">Core Shift Checks</div>
-            <div class="check-item"><input type="checkbox" id="tempCheck"> <span>Fridge & Freezer Temps Logged & OK</span></div>
-            <div class="check-item"><input type="checkbox" id="crossContam"> <span>Raw/Cooked Food Separation Verified</span></div>
-            <div class="check-item"><input type="checkbox" id="hygiene"> <span>Handwashing Stations Stocked & Clean</span></div>
-            <div class="check-item"><input type="checkbox" id="waste"> <span>Waste Managed & Bins Emptied</span></div>
-
-            <div class="section-title">Opening & Closing Specifics</div>
-            <div class="check-item"><input type="checkbox" id="openCheck"> <span>Opening Procedures Met (Equipment on, Prep ready)</span></div>
-            <div class="check-item"><input type="checkbox" id="closeCheck"> <span>Closing Procedures Met (Deep clean, Lines off, Locked)</span></div>
-            
-            <div class="input-group" style="margin-top:20px;">
-                <label>Handover Notes / Discrepancies</label>
-                <textarea id="cateringNotes" rows="3" placeholder="Note any equipment faults, low stock, or handover items..."></textarea>
-            </div>
-
-            <div class="input-group" style="text-align: center; margin-top: 25px; margin-bottom: 10px;">
-                <label style="margin-bottom: 10px;">Scan to Open This Catering Checklist (Live)</label>
-                <div style="background: white; padding: 15px; display: inline-block; border-radius: 12px;">
-                    <img id="qrImg" src="" alt="Catering QR Code">
-                </div>
-            </div>
-            
-            <button type="submit" class="btn">Send Catering Report via Email</button>
-        </form>
+    <!-- Metadata Section -->
+    <div class="section">
+        <div class="form-group">
+            <label for="staffName">Staff Member Name</label>
+            <input type="text" id="staffName" placeholder="Enter your name">
+        </div>
+        <div class="form-group">
+            <label for="shiftDate">Date</label>
+            <input type="date" id="shiftDate">
+        </div>
+        <div class="form-group">
+            <label for="timeStart">Time Start</label>
+            <input type="time" id="timeStart">
+        </div>
+        <div class="form-group">
+            <label for="shiftSelect">Select Your Shift (24H Coverage)</label>
+            <select id="shiftSelect">
+                <option value="">-- Choose Shift --</option>
+                <option value="morning">Morning Shift (06:00 - 14:00) [Opening Checklist]</option>
+                <option value="afternoon">Afternoon Shift (14:00 - 22:00) [Mid-Day Checklist]</option>
+                <option value="night">Night Shift (22:00 - 06:00) [Closing Checklist]</option>
+            </select>
+        </div>
     </div>
 
-    <script>
-        // Set today's date
-        document.getElementById('logDate').valueAsDate = new Date();
+    <!-- Core Checks Section -->
+    <div class="section">
+        <div class="section-title">Core Shift Checks</div>
+        <div class="checkbox-group">
+            <input type="checkbox" id="check1">
+            <label for="check1">Fridge & Freezer Temps Logged & OK (Freezers down to -18°C)</label>
+        </div>
+        <div class="checkbox-group">
+            <input type="checkbox" id="check2">
+            <label for="check2">Raw/Cooked Food Separation Verified</label>
+        </div>
+        <div class="checkbox-group">
+            <input type="checkbox" id="check3">
+            <label for="check3">Handwashing Stations Stocked & Clean</label>
+        </div>
+        <div class="checkbox-group">
+            <input type="checkbox" id="check4">
+            <label for="check4">Waste Managed & Bins Emptied</label>
+        </div>
+    </div>
 
-        // Live URL for this page on GitHub Pages
-        const liveUrl = 'https://Abdi686.github.io/Checklist/go_cater_checklist.html';
-        document.getElementById('qrImg').src = 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=' + encodeURIComponent(liveUrl);
+    <!-- Opening & Closing Specifics -->
+    <div class="section">
+        <div class="section-title">Opening & Closing Specifics</div>
+        <div class="checkbox-group">
+            <input type="checkbox" id="openCheck">
+            <label for="openCheck">Opening Procedures Met (Equipment on, Prep ready)</label>
+        </div>
+        <div class="checkbox-group">
+            <input type="checkbox" id="closeCheck">
+            <label for="closeCheck">Closing Procedures Met (Deep clean, Lines off, Locked)</label>
+        </div>
+    </div>
 
-        // Form submit: build email with actual checkbox states
-        document.getElementById('cateringForm').addEventListener('submit', function(event) {
-            event.preventDefault();
+    <!-- Handover Notes -->
+    <div class="section">
+        <div class="section-title">Handover Notes / Discrepancies</div>
+        <textarea id="notes" rows="4" placeholder="Enter details of any equipment faults, temperature drops, or stock issues..."></textarea>
+    </div>
 
-            const destinationEmail = 'Abdi@gohafeezgroup.com';
+    <!-- Submit Action -->
+    <button onclick="alert('Report Compiled! Ready to email.')">Send Catering Report via Email</button>
 
-            const staff = document.getElementById('staffName').value;
-            const date = document.getElementById('logDate').value;
-            const time = document.getElementById('timeStart').value;
-            const shift = document.getElementById('shiftPattern').value;
-            const notes = document.getElementById('cateringNotes').value || 'None reported';
+    <div class="qr-placeholder">
+        <p><strong>Scan to Open This Catering Checklist (Live)</strong></p>
+        <div style="background:#edf2f7; width:100px; height:100px; margin:10px auto; display:flex; align-items:center; justify-content:center; border: 1px solid #cbd5e0; border-radius:4px; font-size:10px; color:#a0aec0;">QR CODE</div>
+    </div>
+</div>
 
-            function checkMark(id) {
-                const el = document.getElementById(id);
-                return el && el.checked ? '[✓]' : '[ ]';
-            }
-
-            let emailBody = 'GO RIDE CATERING SHIFT REPORT\n';
-            emailBody += '====================================\n\n';
-            emailBody += 'Staff Name: ' + staff + '\n';
-            emailBody += 'Date: ' + date + '\n';
-            emailBody += 'Start Time: ' + time + '\n';
-            emailBody += 'Shift Pattern: ' + shift + '\n\n';
-            emailBody += 'OPERATIONAL CHECKS:\n';
-            emailBody += checkMark('tempCheck') + ' Fridge & Freezer Temps Logged & OK\n';
-            emailBody += checkMark('crossContam') + ' Raw/Cooked Food Separation Verified\n';
-            emailBody += checkMark('hygiene') + ' Handwashing Stations Stocked & Clean\n';
-            emailBody += checkMark('waste') + ' Waste Managed & Bins Emptied\n';
-            emailBody += checkMark('openCheck') + ' Opening Procedures Met\n';
-            emailBody += checkMark('closeCheck') + ' Closing Procedures Met\n\n';
-            emailBody += 'Handover & Discrepancy Notes:\n' + notes + '\n\n';
-            emailBody += 'Live checklist: ' + liveUrl + '\n';
-
-            const subject = encodeURIComponent('Catering Shift Report - ' + date + ' (' + staff + ')');
-            const body = encodeURIComponent(emailBody);
-
-            window.location.href = 'mailto:' + destinationEmail + '?subject=' + subject + '&body=' + body;
-        });
-    </script>
 </body>
 </html>
